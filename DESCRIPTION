@@ -17,7 +17,8 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Maintainer: Philippus Coetser <flippie.coetser@gmail.com>
 Imports: 
-    stats
+    stats,
+    robustbase
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
