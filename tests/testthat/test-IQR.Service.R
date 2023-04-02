@@ -5,9 +5,7 @@ test_that('IQR.Service exist',{
 })
 test_that("IQR.Service() returns list of services",{
   # Given
-  services <- 
-    IQR.Broker() |>
-    IQR.Service()
+  services <- IQR.Service()
 
   # Then
   services |>
@@ -18,9 +16,7 @@ test_that("IQR.Service() returns list of services",{
 # IQR From Quartiles
 test_that('service instance has IQRFromQuartiles service',{
   # Given
-  services <- 
-    IQR.Broker() |>
-    IQR.Service()
+  services <- IQR.Service()
 
   # Then
   services[['IQRFromQuartiles']] |>
@@ -29,9 +25,7 @@ test_that('service instance has IQRFromQuartiles service',{
 })
 test_that("quartiles |> service[['IQRFromQuartiles']]() returns Interquartile range",{
   # Given
-  service <- 
-    IQR.Broker() |>
-    IQR.Service()
+  service <- IQR.Service()
 
   quartile <- Quartile.Service()
   data <- 1000 |> rnorm(10,5)
@@ -52,9 +46,7 @@ test_that("quartiles |> service[['IQRFromQuartiles']]() returns Interquartile ra
 # IQR From Sample
 test_that('service instance has IQRFromSample service',{
   # Given
-  services <- 
-    IQR.Broker() |>
-    IQR.Service()
+  services <- IQR.Service()
 
   # Then
   services[['IQRFromSample']] |>
@@ -63,9 +55,7 @@ test_that('service instance has IQRFromSample service',{
 })
 test_that("quartiles |> service[['IQRFromSample']]() returns Interquartile range",{
   # Given
-  service <- 
-    IQR.Broker() |>
-    IQR.Service()
+  service <- IQR.Service()
 
   quartile <- Quartile.Service()
   data <- 1000 |> rnorm(10,5)

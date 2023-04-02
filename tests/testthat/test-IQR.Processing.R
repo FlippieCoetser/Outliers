@@ -13,7 +13,6 @@ test_that('IQR.Processing() returns a list of processors',{
 test_that("processor instance has IQR",{
   # Given
   processors <-
-    IQR.Broker()  |>
     IQR.Service() |>
     IQR.Processing()
 
@@ -25,7 +24,6 @@ test_that("processor instance has IQR",{
 test_that("quartiles |> processor[['IQR']]() returns Interquartile range",{
   # Given
   processors <-
-    IQR.Broker()  |>
     IQR.Service() |>
     IQR.Processing()
 
@@ -47,7 +45,6 @@ test_that("quartiles |> processor[['IQR']]() returns Interquartile range",{
 test_that("sample |> processor[['IQR']]() returns Interquartile range",{
   # Given
   processors <-
-    IQR.Broker()  |>
     IQR.Service() |>
     IQR.Processing()
 
