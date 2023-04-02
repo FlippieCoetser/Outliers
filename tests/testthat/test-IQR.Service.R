@@ -1,74 +1,145 @@
-test_that('IQR.Service exist',{
-  IQR.Service |>
-    is.null()      |>
-      expect_equal(FALSE)
-})
-test_that("IQR.Service() returns list of services",{
-  # Given
-  services <- IQR.Service()
-
-  # Then
-  services |>
-    is.list()      |>
-      expect_equal(TRUE)
+describe("Given IQR.Service",{
+  it("exist",{
+    IQR.Service |> is.null() |> expect_equal(FALSE)
+  })
 })
 
-# IQR From Quartiles
-test_that('service instance has IQRFromQuartiles service',{
-  # Given
-  services <- IQR.Service()
+describe("When services <- IQR.Service()",{
+  it("then services is a list",{
+    # Given
+    services <- IQR.Service()
 
-  # Then
-  services[['IQRFromQuartiles']] |>
-    is.null()                    |>
-      expect_equal(FALSE)
-})
-test_that("quartiles |> service[['IQRFromQuartiles']]() returns Interquartile range",{
-  # Given
-  service <- IQR.Service()
+    # Then
+    services |> is.list() |> expect_equal(TRUE)
+  })
+  it("then services contains IQRFromQuartiles service",{
+    # Given
+    services <- IQR.Service()
 
-  quartile <- Quartile.Service()
-  data <- 1000 |> rnorm(10,5)
+    # Then
+    services[['IQRFromQuartiles']] |> is.null() |> expect_equal(FALSE)
+  })
+  it("then services contains IQRFromSample service",{
+    # Given
+    services <- IQR.Service()
 
-  quartiles <- list()
-  quartiles[['first']] <- data |> quartile[['first']]()
-  quartiles[['third']] <- data |> quartile[['third']]()
-
-  # When
-  IQR <- (quartiles[['third']] - quartiles[['first']])
-
-  # Then
-  quartiles |>
-    service[['IQRFromQuartiles']]() |>
-      expect_equal(IQR)
+    # Then
+    services[['IQRFromSample']] |> is.null() |> expect_equal(FALSE)
+  })
 })
 
-# IQR From Sample
-test_that('service instance has IQRFromSample service',{
-  # Given
-  services <- IQR.Service()
+describe("When input |> service[['IQRfromQuartiles']]()",{
+  it("then no exception is thrown if input is a list",{
+    # Given
+    service <- IQR.Service()
+    quartile <- Quartile.Service()
 
-  # Then
-  services[['IQRFromSample']] |>
-    is.null()                 |>
-      expect_equal(FALSE)
+    data <- 1000 |> rnorm(10,5)
+
+    # When
+    input <- list()
+    input[['first']] <- data |> quartile[['first']]()
+    input[['third']] <- data |> quartile[['third']]()
+
+    # Then
+    input |> service[['IQRFromQuartiles']]() |> expect_no_error()
+  })
+  it("then an exception is thrown if input is a list with no first",{
+    # Given
+    service <- IQR.Service()
+    quartile <- Quartile.Service()
+
+    data <- 1000 |> rnorm(10,5)
+
+    # When
+    input <- list()
+    input[['third']] <- data |> quartile[['third']]()
+  
+    # Then
+    input |> service[['IQRFromQuartiles']]() |> expect_error('first quartile missing')
+  })
+  it("then an exception is thrown if input is a list with no third",{
+    # Given
+    service <- IQR.Service()
+    quartile <- Quartile.Service()
+
+    data <- 1000 |> rnorm(10,5)
+
+    # When
+    input <- list()
+    input[['first']] <- data |> quartile[['first']]()
+  
+    # Then
+    input |> service[['IQRFromQuartiles']]() |> expect_error('third quartile missing')
+  })
+  it("then an exception is thrown if input is no a list",{
+    # Given
+    service <- IQR.Service()
+    quartile <- Quartile.Service()
+
+    data <- 1000 |> rnorm(10,5)
+
+    # When
+    data <- 1000 |> rnorm(10,5)
+
+    # Then
+    data |> service[['IQRFromQuartiles']]() |> expect_error('argument is not list')
+  })
+  it("then the IQR is returned if input is a list with first and third",{
+    # Given
+    service <- IQR.Service()
+
+    quartile <- Quartile.Service()
+    data <- 1000 |> rnorm(10,5)
+
+    quartiles <- list()
+    quartiles[['first']] <- data |> quartile[['first']]()
+    quartiles[['third']] <- data |> quartile[['third']]()
+
+    # When
+    IQR <- (quartiles[['third']] - quartiles[['first']])
+
+    # Then
+    quartiles |> service[['IQRFromQuartiles']]() |> expect_equal(IQR)
+  })
 })
-test_that("quartiles |> service[['IQRFromSample']]() returns Interquartile range",{
-  # Given
-  service <- IQR.Service()
 
-  quartile <- Quartile.Service()
-  data <- 1000 |> rnorm(10,5)
+describe("When input |> service[['IQRFromSample']]()",{
+  it("then no exception is thrown if input is numeric",{
+    # Given
+    service <- IQR.Service()
 
-  quartiles <- list()
-  quartiles[['first']] <- data |> quartile[['first']]()
-  quartiles[['third']] <- data |> quartile[['third']]()
+    # When
+    input <- 1000 |> rnorm(10,5)
 
-  # When
-  IQR <- (quartiles[['third']] - quartiles[['first']])
+    # Then
+    input |> service[['IQRFromSample']]() |> expect_no_error()
+  })
+  it("then an exception is thrown if input is no numeric",{
+    # Given
+    service <- IQR.Service()
 
-  # Then
-  data |>
-    service[['IQRFromSample']]() |>
-      expect_equal(IQR)
+    # When
+    input <- list()
+
+    # Then
+    input |> service[['IQRFromSample']]() |> expect_error('argument is not numeric')
+  })
+  it("then the IQR is returned if input is numeric",{
+    # Given
+    service <- IQR.Service()
+    quartile <- Quartile.Service()
+
+    # When
+    input <- 1000 |> rnorm(10,5)
+    
+    quartiles <- list()
+    quartiles[['first']] <- input |> quartile[['first']]()
+    quartiles[['third']] <- input |> quartile[['third']]()
+
+    IQR <- (quartiles[['third']] - quartiles[['first']])
+
+    # Then
+    input |> service[['IQRFromSample']]() |> expect_equal(IQR)
+  })
 })

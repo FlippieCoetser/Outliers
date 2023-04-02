@@ -1,142 +1,128 @@
-test_that("IQR.Validation exist",{
-  IQR.Validation |>
-    is.null()         |>
-      expect_equal(FALSE)
-})
-test_that("IQR.Validation() returns list of validators",{
-  IQR.Validation() |>
-    is.list()        |>
-      expect_equal(TRUE)
+describe("Given IQR.Validation",{
+  it("exist",{
+    IQR.Validation |> is.null() |> expect_equal(FALSE)
+  })
 })
 
-# Exist Validator
-test_that("validator instance has Exist validator",{
-  # Given
-  validator <- IQR.Validation()
+describe("When validators <- IQR.Validation()",{
+  it("then validators is a list",{
+    # Given
+    validators <- IQR.Validation()
 
-  # Then
-  validator[["Exist"]]  |>
-    is.null()           |>
-      expect_equal(FALSE)
-})
-test_that("data |> validator[['Exist']]() should throw error when data is null",{
-  # Given
-  validator <- IQR.Validation()
+    # Then
+    validators |> is.list() |> expect_equal(TRUE)
+  })
+  it("then validators contains Exist validator",{
+    # Given
+    validators <- IQR.Validation()
 
-  # THEN
-  NULL |>
-    validator[['Exist']]() |>
-      expect_error()
-})
+    # Then
+    validators[['Exist']] |> is.null() |> expect_equal(FALSE)
+  })
+  it("then validators contains IsNumeric validator",{
+    # Given
+    validators <- IQR.Validation()
 
-# Is Numeric Validator
-test_that("validator instance has IsNumeric validator",{
-  # Given
-  validator <- IQR.Validation()
+    # Then
+    validators[['IsNumeric']] |> is.null() |> expect_equal(FALSE)
+  })
+  it("then validators contains IsList validator",{
+    # Given
+    validators <- IQR.Validation()
 
-  # Then
-  validator[["IsNumeric"]]  |>
-    is.null()               |>
-      expect_equal(FALSE)
-})
-test_that("data |> validator[['IsNumeric']]() should throw error when data is string",{
-  # Given
-  validator <- IQR.Validation()
+    # Then
+    validators[['IsList']] |> is.null() |> expect_equal(FALSE)
+  })
+  it("then validators contains HasFirstQuartile validator",{
+    # Given
+    validators <- IQR.Validation()
 
-  # Then
-  '' |>
-    validator[['IsNumeric']]() |>
-      expect_error()
-})
+    # Then
+    validators[['HasFirstQuartile']] |> is.null() |> expect_equal(FALSE)
+  })
+  it("then validators contains HasThirdQuartile validator",{
+    # Given
+    validators <- IQR.Validation()
 
-# Is Numeric Validator
-test_that("validator instance has IsList validator",{
-  # Given
-  validator <- IQR.Validation()
-
-  # Then
-  validator[["IsList"]]  |>
-    is.null()               |>
-      expect_equal(FALSE)
-})
-test_that("data |> validator[['IsList']]() should throw error when data is number",{
-  # Given
-  validator <- IQR.Validation()
-
-  # Then
-  8 |>
-    validator[['IsList']]() |>
-      expect_error()
+    # Then
+    validators[['HasThirdQuartile']] |> is.null() |> expect_equal(FALSE)
+  })
 })
 
-# Has First Quartile
-test_that("validator instance has HasFirstQuartile validator",{
-  # Given
-  validator <- IQR.Validation()
+describe("When input |> validator[['Exist']]()",{
+  it("should throw error when input is null",{
+    # Given
+    validator <- IQR.Validation()
 
-  # Then
-  validator[['HasFirstQuartile']]  |>
-    is.null()               |>
-      expect_equal(FALSE)
-})
-test_that("data |> validator[['HasFirstQuartile']]() should throw error when data has no first member",{
-  # Given
-  validator <- IQR.Validation()
-
-  # When
-  quartiles <- list()
-
-  # Then
-  quartiles |>
-    validator[['HasFirstQuartile']]() |>
-        expect_error()
-})
-test_that("data |> validator[['HasFirstQuartile']]() should not throw exception when data has first member",{
-  # Given
-  validator <- IQR.Validation()
-
-  # When
-  quartiles <- list()
-  quartiles[['first']] <- 8
-
-  # Then
-  quartiles |>
-    validator[['HasFirstQuartile']]() |>
-      expect_no_error()
+    # THEN
+    NULL |> validator[['Exist']]() |> expect_error()
+  })
 })
 
-# Has Third Quartile
-test_that("validator instance has HasThirdQuartile validator",{
-  # Given
-  validator <- IQR.Validation()
+describe("When input |> validator[['IsNumeric']]()",{
+  it("then no exception is thrown when input is number",{
+    # Given
+    validator <- IQR.Validation()
 
-  # Then
-  validator[['HasThirdQuartile']]  |>
-    is.null()               |>
-      expect_equal(FALSE)
+    # THEN
+    1 |> validator[['IsNumeric']]() |> expect_no_error()
+  })
+  it("then an exception is thrown when input is string",{
+    # Given
+    validator <- IQR.Validation()
+
+    # THEN
+    '' |> validator[['IsNumeric']]() |> expect_error('argument is not numeric')
+  })
 })
-test_that("data |> validator[['HasThirdQuartile']]() should throw error when data has no third member",{
-  # Given
-  validator <- IQR.Validation()
 
-  # When
-  quartiles <- list()
+describe("When input |> validator[['IsList']]()",{
+  it("then no exception is thrown when input is list",{
+    # Given
+    validator <- IQR.Validation()
 
-  # Then
-  quartiles |>
-    validator[['HasThirdQuartile']]() |>
-        expect_error()
+    # THEN
+    list() |> validator[['IsList']]() |> expect_no_error()
+  })
+  it("then an exception is thrown when input is not a list",{
+    # Given
+    validator <- IQR.Validation()
+
+    # THEN
+    8 |> validator[['IsList']]() |> expect_error('argument is not list')
+  })
 })
-test_that("data |> validator[['HasThirdQuartile']]() should not throw exception when data has third member",{
-  # Given
-  validator <- IQR.Validation()
 
-  # When
-  quartiles <- list()
-  quartiles[['third']] <- 8
+describe("When input |> validator[['HasFirstQuartile']]()",{
+  it("then no exception is thrown when input has first member",{
+    # Given
+    validator <- IQR.Validation()
 
-  # Then
-  quartiles |>
-    validator[['HasThirdQuartile']]() |>
-      expect_no_error()
+    # THEN
+    list(first = 8) |> validator[['HasFirstQuartile']]() |> expect_no_error()
+  })
+  it("then an exception is thrown when input has no first member",{
+    # Given
+    validator <- IQR.Validation()
+
+    # THEN
+    list() |> validator[['HasFirstQuartile']]() |> expect_error('first quartile missing')
+  })
+})
+
+describe("When input |> validator[['HasThirdQuartile']]()",{
+  it("then no exception is thrown when input has third member",{
+    # Given
+    validator <- IQR.Validation()
+
+    # THEN
+    list(third = 8) |> validator[['HasThirdQuartile']]() |> expect_no_error()
+  })
+  it("then an exception is thrown when input has no third member",{
+    # Given
+    validator <- IQR.Validation()
+
+    # THEN
+    list() |> validator[['HasThirdQuartile']]() |> expect_error('third quartile missing')
+  })
 })
