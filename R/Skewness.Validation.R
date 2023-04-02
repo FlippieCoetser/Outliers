@@ -2,7 +2,6 @@ Skewness.Validation <- \() {
   exception <- Skewness.Exceptions()
 
   validators <- list()
-
   validators[['Exist']]     <- \(data) {
     data |> is.null() |> exception[['NullException']]()
     return(data)
@@ -11,6 +10,5 @@ Skewness.Validation <- \() {
     data |> is.numeric() |> isFALSE() |> exception[['NumericException']]()
     return(data)
   }
-
   return(validators)
 }

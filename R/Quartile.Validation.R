@@ -12,7 +12,6 @@ Quartile.Validation <- \() {
   exception <- Quartile.Exceptions()
 
   validators <- list()
-
   validators[['Exist']]     <- \(data) {
     data |> is.null() |> exception[['NullException']]()
     return(data)
@@ -21,6 +20,5 @@ Quartile.Validation <- \() {
     data |> is.numeric() |> isFALSE() |> exception[['NumericException']]()
     return(data)
   }
-
   return(validators)
 }

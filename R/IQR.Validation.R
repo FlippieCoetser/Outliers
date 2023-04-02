@@ -2,16 +2,15 @@ IQR.Validation <- \(){
   exception <- IQR.Exceptions()
   
   validators <- list()
-  
-  validators[['Exist']]     <- \(data) {
+  validators[['Exist']]            <- \(data) {
     data |> is.null() |> exception[['NullException']]()
     return(data)
   }
-  validators[['IsNumeric']] <- \(data) {
+  validators[['IsNumeric']]        <- \(data) {
     data |> is.numeric() |> isFALSE() |> exception[['NumericException']]()
     return(data)
   }
-  validators[['IsList']] <- \(data) {
+  validators[['IsList']]           <- \(data) {
     data |> is.list() |> isFALSE() |> exception[['ListException']]()
     return(data)
   }
@@ -23,6 +22,5 @@ IQR.Validation <- \(){
     data[['third']] |> is.null() |> exception[['ThirdQuartileMissingException']]()
     return(data)
   }
-
   return(validators)
 }

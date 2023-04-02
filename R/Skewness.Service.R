@@ -2,7 +2,6 @@ Skewness.Service <- \() {
   validate <- Skewness.Validation()
 
   services <- list()
-
   services[['medcouple']] <- \(sample) {
     sample |>
       validate[['Exist']]() |>
@@ -11,6 +10,5 @@ Skewness.Service <- \() {
     sample |>
       robustbase::mc()
   }
-
   return(services)
 }

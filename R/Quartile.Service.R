@@ -21,7 +21,6 @@ Quartile.Service <- \() {
   validator <- Quartile.Validation()
 
   services <- list()
-
   services[['first']] <- \(data) {
     data |>
       validator[['Exist']]() |>
@@ -38,6 +37,5 @@ Quartile.Service <- \() {
     data |> 
       stats::quantile(0.75)
   }
-
   return(services)
 }
