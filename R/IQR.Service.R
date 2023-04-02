@@ -1,8 +1,9 @@
-IQR.Service <- \(broker) {
+IQR.Service <- \() {
+  quartile <- Quartile.Service()
+  
   validate <- IQR.Validation()
 
   services <- list()
-
   services[['IQRFromQuartiles']] <- \(quartiles) {
     quartiles |>
       validate[['Exist']]()            |>
@@ -10,17 +11,18 @@ IQR.Service <- \(broker) {
       validate[['HasFirstQuartile']]() |>
       validate[['HasThirdQuartile']]()
 
-    quartiles |> 
-      broker[['IQRFromQuartiles']]()
+    quartiles[['third']] - quartiles[['first']]
   }
-  services[['IQRFromSample']] <- \(sample) {
+  services[['IQRFromSample']]    <- \(sample) {
     sample |>
       validate[['Exist']]() |>
       validate[['IsNumeric']]()
 
-    sample |> 
-      broker[['IQRFromSample']]()
-  }
+    quartiles <- list()
+    quartiles[['first']] <- sample |> quartile[['first']]()
+    quartiles[['third']] <- sample |> quartile[['third']]()
 
+    quartiles |> services[['IQRFromQuartiles']]()
+  }
   return(services)
 }
