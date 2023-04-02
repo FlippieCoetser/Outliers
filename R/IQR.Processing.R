@@ -1,11 +1,11 @@
 IQR.Processing <- \(service) {
   processors <- list()
   processors[['IQR']] <- \(input) {
-    if (input |> is.numeric()) {
-      input |> service[['IQRFromSample']]()
-    } else {
-      input |> service[['IQRFromQuartiles']]()
-    } 
+    services <- list()
+    services[[1]] <- \(input) input |> service[['IQRFromQuartiles']]()
+    services[[2]] <- \(input) input |> service[['IQRFromSample']]()
+
+    input |> services[[(input |> is.numeric()) + 1]]() 
   }
   return(processors)
 }
