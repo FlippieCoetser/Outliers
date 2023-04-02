@@ -1,13 +1,12 @@
 IQR.Exceptions <- \(){
   exceptions <- list()
-
-  exceptions[['NullException']]    <- \(invoke) {
+  exceptions[['NullException']]                 <- \(invoke) {
     if (invoke) {stop('argument is NULL')}
   }
-  exceptions[['NumericException']] <- \(invoke) {
+  exceptions[['NumericException']]              <- \(invoke) {
     if (invoke) {stop('argument is not numeric')}
   }
-  exceptions[['ListException']] <- \(invoke) {
+  exceptions[['ListException']]                 <- \(invoke) {
     if (invoke) {stop('argument is not list')}
   }
   exceptions[['FirstQuartileMissingException']] <- \(invoke) {
@@ -16,6 +15,5 @@ IQR.Exceptions <- \(){
   exceptions[['ThirdQuartileMissingException']] <- \(invoke) {
     if (invoke) {stop('third quartile missing')}
   }
-
   return(exceptions)
 }
