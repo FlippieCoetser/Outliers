@@ -1,50 +1,63 @@
-test_that("Quartile.Validation exist",{
-  Quartile.Validation |>
-    is.null()         |>
-      expect_equal(FALSE)
-})
-test_that("Quartile.Validation() returns list of validators",{
-  Quartile.Validation() |>
-    is.list()        |>
-      expect_equal(TRUE)
+describe("Given Quartile.Validation",{
+  it("Exist",{
+    Quartile.Validation |> is.null() |> expect_equal(FALSE)
+  })
 })
 
-# Data Exist Validator
-test_that("validator instance has Exist validator",{
-  # Given
-  validator <- Quartile.Validation()
+describe("When validators <- Quartile.Validation()",{
+  it("then validators is a list",{
+    # Given
+    validators <- Quartile.Validation()
 
-  # Then
-  validator[["Exist"]]  |>
-    is.null()           |>
-      expect_equal(FALSE)
+    # Then
+    validators |> is.list() |> expect_equal(TRUE)
+  })
+  it("then validators contains Exist",{
+    # Given
+    validators <- Quartile.Validation()
+
+    # Then
+    validators[['Exist']] |> is.null() |> expect_equal(FALSE)
+  })
+  it("then validators contains IsNumeric",{
+    # Given
+    validators <- Quartile.Validation()
+
+    # Then
+    validators[['IsNumeric']] |> is.null() |> expect_equal(FALSE)
+  })
 })
-test_that("data |> validator[['Exist']]() should throw error when data is null",{
-  # Given
-  validator <- Quartile.Validation()
 
-  # THEN
-  NULL |>
-    validator[['Exist']]() |>
-      expect_error()
+describe("When input |> validator[['Exist']]()",{
+  it("then no exception is thrown when input is not NULL",{
+    # Given
+    validator <- Quartile.Validation()
+
+    # THEN
+    '' |> validator[['Exist']]() |> expect_no_error()
+  })
+  it("then an exception is thrown when input is NULL",{
+    # Given
+    validator <- Quartile.Validation()
+
+    # THEN
+    NULL |> validator[['Exist']]() |> expect_error('argument is NULL')
+  })
 })
 
-# Data Is Numeric Validator
-test_that("validator instance has IsNumeric validator",{
-  # Given
-  validator <- Quartile.Validation()
+describe("When input |> validator[['IsNumeric']]()",{
+  it("then no exception is thrown when input is numeric",{
+    # Given
+    validator <- Quartile.Validation()
 
-  # Then
-  validator[["IsNumeric"]]  |>
-    is.null()               |>
-      expect_equal(FALSE)
-})
-test_that("data |> validator[['IsNumeric']]() should throw error when data is string",{
-  # Given
-  validator <- Quartile.Validation()
+    # THEN
+    1 |> validator[['IsNumeric']]() |> expect_no_error()
+  })
+  it("then an exception is thrown when input is not numeric",{
+    # Given
+    validator <- Quartile.Validation()
 
-  # Then
-  '' |>
-    validator[['IsNumeric']]() |>
-      expect_error()
+    # THEN
+    '' |> validator[['IsNumeric']]() |> expect_error('argument is not numeric')
+  })
 })

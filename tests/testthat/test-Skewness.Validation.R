@@ -1,50 +1,63 @@
-test_that("Skewness.Validation exist",{
-  Skewness.Validation |>
-    is.null()         |>
-      expect_equal(FALSE)
-})
-test_that("Skewness.Validation() returns list of validators",{
-  Skewness.Validation() |>
-    is.list()        |>
-      expect_equal(TRUE)
+describe("Given Skewness.Validation",{
+  it("Exist",{
+    Skewness.Validation |> is.null() |> expect_equal(FALSE)
+  })
 })
 
-# Data Exist Validator
-test_that("validator instance has Exist validator",{
-  # Given
-  validator <- Skewness.Validation()
+describe("When validators <- Skewness.Validation()",{
+  it("then validators is a list",{
+    # Given
+    validators <- Skewness.Validation()
 
-  # Then
-  validator[["Exist"]]  |>
-    is.null()           |>
-      expect_equal(FALSE)
+    # Then
+    validators |> is.list() |> expect_equal(TRUE)
+  })
+  it("then validators contains Exist",{
+    # Given
+    validators <- Skewness.Validation()
+
+    # Then
+    validators[['Exist']] |> is.null() |> expect_equal(FALSE)
+  })
+  it("then validators contains IsNumeric",{
+    # Given
+    validators <- Skewness.Validation()
+
+    # Then
+    validators[['IsNumeric']] |> is.null() |> expect_equal(FALSE)
+  })
 })
-test_that("data |> validator[['Exist']]() should throw error when data is null",{
-  # Given
-  validator <- Skewness.Validation()
 
-  # THEN
-  NULL |>
-    validator[['Exist']]() |>
-      expect_error()
+describe("When input |> validator[['Exist']]()",{
+  it("then no exception is thrown when input is not NULL",{
+    # Given
+    validator <- Skewness.Validation()
+
+    # THEN
+    '' |> validator[['Exist']]() |> expect_no_error()
+  })
+  it("then an exception is thrown when input is NULL",{
+    # Given
+    validator <- Skewness.Validation()
+
+    # THEN
+    NULL |> validator[['Exist']]() |> expect_error('argument is NULL')
+  })
 })
 
-# Data Is Numeric Validator
-test_that("validator instance has IsNumeric validator",{
-  # Given
-  validator <- Skewness.Validation()
+describe("When input |> validator[['IsNumeric']]()",{
+  it("then no exception is thrown when input is numeric",{
+    # Given
+    validator <- Skewness.Validation()
 
-  # Then
-  validator[["IsNumeric"]]  |>
-    is.null()               |>
-      expect_equal(FALSE)
-})
-test_that("data |> validator[['IsNumeric']]() should throw error when data is string",{
-  # Given
-  validator <- Skewness.Validation()
+    # THEN
+    1 |> validator[['IsNumeric']]() |> expect_no_error()
+  })
+  it("then an exception is thrown when input is not numeric",{
+    # Given
+    validator <- Skewness.Validation()
 
-  # Then
-  '' |>
-    validator[['IsNumeric']]() |>
-      expect_error()
+    # THEN
+    '' |> validator[['IsNumeric']]() |> expect_error('argument is not numeric')
+  })
 })

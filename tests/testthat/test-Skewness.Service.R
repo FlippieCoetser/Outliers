@@ -1,39 +1,44 @@
-test_that('Medcouple.Service exist',{
-  Skewness.Service |>
-    is.null()      |>
-      expect_equal(FALSE)
-})
-test_that("Skewness.Service() returns list of services",{
-  # Given
-  services <- Skewness.Service()
-
-  # Then
-  services    |>
-    is.list() |>
-      expect_equal(TRUE)
+describe("Given Skewness.Service",{
+  it("Exist",{
+    Skewness.Service |> is.null() |> expect_equal(FALSE)
+  })
 })
 
-# Medcouple 
-test_that("service instance has medcouple service",{
-  # Given
-  services <- Skewness.Service()
+describe("When services <- Skewness.Service()",{
+  it("then services is a list",{
+    # Given
+    services <- Skewness.Service()
 
-  # Then
-  services[['medcouple']] |>
-    is.null()             |>
-      expect_equal(FALSE)
+    # Then
+    services |> is.list() |> expect_equal(TRUE)
+  })
+  it("then services contains medcouple",{
+    # Given
+    services <- Skewness.Service()
+
+    # Then
+    services[['medcouple']] |> is.null() |> expect_equal(FALSE)
+  })
 })
-test_that("sample |> service[['medcouple']]() returns medcouple skewness of sample",{
-  # Given
-  service <- Skewness.Service()
 
-  data <- 1000 |> rnorm(10,5)
+describe("When input |> service[['medcouple']]()",{
+  it("then the medcouple of the sample number are returned",{
+    # Given
+    service <- Skewness.Service()
 
-  # When
-  medcouple <- data |> robustbase::mc()
+    input <- 1000 |> rnorm(10,5)
 
-  # Then
-  data |>
-    service[['medcouple']]() |>
-      expect_equal(medcouple)
+    # When
+    medcouple <- input |> robustbase::mc()
+
+    # THEN
+    input |> service[['medcouple']]() |> expect_equal(medcouple)
+  })
+  it("then an exception is thrown when input is not numeric",{
+    # Given
+    service <- Skewness.Service()
+
+    # THEN
+    'a' |> service[['medcouple']]() |> expect_error('argument is not numeric')
+  })
 })
