@@ -52,3 +52,28 @@ describe("When medcouple |> services[['Upper']]()",{
     result |> expect_equal(exp(-3*medcouple))
   })
 })
+
+describe("When medcouple |> services[['Lower']]()",{
+  it("then exp(3*medcouple) is returned if medcouple >= 0",{
+    # Given
+    service <- Boundary.Adjustment.Service()
+    medcouple <- 1
+
+    # When
+    result <- medcouple |> service[['Lower']]()
+
+    # Then
+    result |> expect_equal(exp(3*medcouple))
+  })
+  it("then exp(4*medcouple) is returned if medcouple < 0",{
+    # Given
+    service <- Boundary.Adjustment.Service()
+    medcouple <- -1
+
+    # When
+    result <- medcouple |> service[['Lower']]()
+
+    # Then
+    result |> expect_equal(exp(4*medcouple))
+  })
+})
