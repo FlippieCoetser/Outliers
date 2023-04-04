@@ -27,3 +27,28 @@ describe("Given services <- Boundary.Adjustment.Service()",{
     services[['Lower']] |> is.function() |> expect_equal(TRUE)
   })
 })
+
+describe("When medcouple |> services[['Upper']]()",{
+  it("then exp(-4*medcouple) is returned if medcouple >= 0",{
+    # Given
+    service <- Boundary.Adjustment.Service()
+    medcouple <- 1
+
+    # When
+    result <- medcouple |> service[['Upper']]()
+
+    # Then
+    result |> expect_equal(exp(-4*medcouple))
+  })
+  it("then exp(-3*medcouple) is returned if medcouple < 0",{
+    # Given
+    service <- Boundary.Adjustment.Service()
+    medcouple <- -1
+
+    # When
+    result <- medcouple |> service[['Upper']]()
+
+    # Then
+    result |> expect_equal(exp(-3*medcouple))
+  })
+})
