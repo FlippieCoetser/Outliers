@@ -19,4 +19,11 @@ describe("Given services <- Boundary.Adjustment.Service()",{
     # Then
     services[['Upper']] |> is.function() |> expect_equal(TRUE)
   })
+  it("then services contains lower service",{
+    # Given
+    services <- Boundary.Adjustment.Service()
+
+    # Then
+    services[['Lower']] |> is.function() |> expect_equal(TRUE)
+  })
 })
