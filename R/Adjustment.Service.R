@@ -12,6 +12,8 @@ Adjustment.Service <- \() {
     medcouple |> adjustments[[(medcouple >= 0) + 1]]()
   }
   services[['Lower']] <- \(medcouple) {
+    medcouple |> validate[['Exist']]()
+    
     adjustments <- list()
     adjustments[[1]] <- \(medcouple) exp(4*medcouple)
     adjustments[[2]] <- \(medcouple) exp(3*medcouple)
