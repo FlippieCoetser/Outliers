@@ -12,4 +12,11 @@ describe("When adjustment.validators <- Adjustment.Validation()",{
     # Then
     adjustment.validators |> is.list() |> expect_equal(TRUE)
   })
+  it("then adjustment.validators contains Exist validator",{
+    # Given
+    adjustment.validators <- Adjustment.Validation()
+
+    # Then
+    adjustment.validators[['Exist']] |> is.function() |> expect_equal(TRUE)
+  })
 })
