@@ -12,4 +12,11 @@ describe("Given services <- Boundary.Service()",{
     # Then
     services |> is.list() |> expect_equal(TRUE)
   })
+  it("then services contain Upper service",{
+    # Given
+    services <- Boundary.Service()
+
+    # Then
+    services[['Upper']] |> is.null() |> expect_equal(FALSE)
+  })
 })
