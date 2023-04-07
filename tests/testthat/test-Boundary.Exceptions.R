@@ -44,3 +44,20 @@ describe("When input |>  boundary.exception[['NullException']]()",{
     TRUE |> boundary.exception[['NullException']]() |> expect_error('argument is NULL')
   })
 })
+
+describe("When input |>  boundary.exception[['NumericException']]()",{
+  it("then no exception is thrown if input is FALSE",{
+    # Given
+    boundary.exception <- Boundary.Exceptions()
+
+    # Then
+    FALSE |> boundary.exception[['NumericException']]() |> expect_no_error()
+  })
+  it("then NULL exception is thrown if input is TRUE",{
+    # Given
+    boundary.exception <- Boundary.Exceptions()
+
+    # Then
+    TRUE |> boundary.exception[['NumericException']]() |> expect_error('argument is not numeric')
+  })
+})
