@@ -29,7 +29,7 @@ describe("When input |> boundary.validate[['Exist']]()",{
     # Then
     NULL |> boundary.validate[['Exist']]() |> expect_error('argument is NULL')
   })
-  it("then no exception should thrown when input is no tnull",{
+  it("then no exception should thrown when input is not null",{
     # Given
     boundary.validate <- Boundary.Validation()
 
