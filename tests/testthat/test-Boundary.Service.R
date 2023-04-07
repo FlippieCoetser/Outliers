@@ -19,6 +19,13 @@ describe("Given services <- Boundary.Service()",{
     # Then
     services[['Upper']] |> is.null() |> expect_equal(FALSE)
   })
+  it("then services contain Lower service",{
+    # Given
+    services <- Boundary.Service()
+
+    # Then
+    services[['Lower']] |> is.null() |> expect_equal(FALSE)
+  })
 })
 
 describe("Given input |> service[['Upper']]()",{
