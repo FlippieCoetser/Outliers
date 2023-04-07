@@ -44,3 +44,20 @@ describe("When input |>  adjustment.exception[['NullException']]()",{
     TRUE |> adjustment.exception[['NullException']]() |> expect_error('argument is NULL')
   })
 })
+
+describe("When input |> adjustment.exception[['NumericException']]()",{
+  it("then no exception is thrown if input is FALSE",{
+    # Given
+    adjustment.exception <- Adjustment.Exceptions()
+
+    # Then
+    FALSE |> adjustment.exception[['NumericException']]() |> expect_no_error()
+  })
+  it("then NULL exception is thrown if input is TRUE",{
+    # Given
+    adjustment.exception <- Adjustment.Exceptions()
+
+    # Then
+    TRUE |> adjustment.exception[['NumericException']]() |> expect_error('argument is not numeric')
+  })
+})
