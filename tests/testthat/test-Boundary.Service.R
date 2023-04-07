@@ -50,6 +50,13 @@ describe("Given input |> service[['Upper']]()",{
     # Then
     actual.boundary |> expect_equal(expected.boundary)
   })
+  it("then an exception is thrown when input is null",{
+    # Given
+    service <- Boundary.Service()
+
+    # Then
+    NULL |> service[['Upper']]() |> expect_error('argument is NULL')
+  })
 })
 
 describe("Given input |> service[['Lower']]()",{
