@@ -76,4 +76,14 @@ describe("When input |> boundary.validate[['IsNumeric']]()",{
     # Then
     input |> boundary.validate[['IsNumeric']]() |> expect_no_error()
   })
+  it("then input should be returned if input is numeric",{
+    # Given
+    boundary.validate <- Boundary.Validation()
+
+    # When
+    input <- 1
+
+    # Then
+    input |> boundary.validate[['IsNumeric']]() |> expect_equal(input)
+  })
 })
