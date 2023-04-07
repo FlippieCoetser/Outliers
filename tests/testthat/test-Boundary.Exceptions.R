@@ -19,6 +19,13 @@ describe("When boundary.exceptions <- Boundary.Exceptions()",{
     # Then
     boundary.exceptions[['NullException']] |> is.function() |> expect_equal(TRUE)
   })
+  it("then boundary.exceptions contains NumericException exception",{
+    # Given
+    boundary.exceptions <- Boundary.Exceptions()
+
+    # Then
+    boundary.exceptions[['NumericException']] |> is.function() |> expect_equal(TRUE)
+  })
 })
 
 describe("When input |>  boundary.exception[['NullException']]()",{
