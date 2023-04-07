@@ -19,6 +19,13 @@ describe("Given outlier.services <- Outlier.Service()",{
     # Then
     outlier.services[['Extract']] |> is.function() |> expect_equal(TRUE)
   })
+  it("then outlier.services contains Remove service",{
+    # Given
+    outlier.services <- Outlier.Service()
+
+    # Then
+    outlier.services[['Remove']] |> is.function() |> expect_equal(TRUE)
+  })
 })
 
 describe("When input |> outlier.service[['Extract']]()",{
