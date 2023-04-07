@@ -86,4 +86,14 @@ describe("When input |> outlier.service[['Remove']]()",{
     # Then
     actual.outliers |> expect_equal(expected.outliers)
   })
+  it("then an exception is thrown when input is NULL",{
+    # Given
+    outlier.service <- Boundary.Service() |> Outlier.Service()
+    
+    # When
+    input   <- NULL
+
+    # Then
+    input |> outlier.service[['Remove']]() |> expect_error('argument is NULL')
+  })
 })
