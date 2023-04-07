@@ -1,1 +1,4 @@
-Outlier.Service <- \() {}
+Outlier.Service <- \() {
+  services <- list()
+  return(services)
+}
