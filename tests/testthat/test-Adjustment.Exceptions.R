@@ -19,6 +19,13 @@ describe("When adjustment.exceptions <- Adjustment.Exceptions()",{
     # Then
     adjustment.exceptions[['NullException']] |> is.function() |> expect_equal(TRUE)
   })
+  it("then adjustment.exceptions contains NumericException exception",{
+    # Given
+    adjustment.exceptions <- Adjustment.Exceptions()
+
+    # Then
+    adjustment.exceptions[['NumericException']] |> is.function() |> expect_equal(TRUE)
+  })
 })
 
 describe("When input |>  adjustment.exception[['NullException']]()",{
