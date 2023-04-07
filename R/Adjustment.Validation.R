@@ -6,5 +6,8 @@ Adjustment.Validation <- \() {
     data |> is.null() |> exception[['NullException']]()
     return(data)
   }
+  validators[['IsNumeric']] <- \(data) {
+    
+  }
   return(validators)
 }
