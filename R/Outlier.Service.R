@@ -3,7 +3,7 @@ Outlier.Service <- \(boundary) {
 
   services <- list()
   services[['Extract']] <- \(sample) {
-    sample |> validate[['Exist']]()
+    sample |> validate[['Exist']]() |> validate[['IsNumeric']]()
 
     boundary.upper <- sample |> boundary[['Upper']]()
     boundary.lower <- sample |> boundary[['Lower']]()
