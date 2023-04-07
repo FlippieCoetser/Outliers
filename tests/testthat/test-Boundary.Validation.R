@@ -22,14 +22,14 @@ describe("When boundary.validators <- Boundary.Validation()",{
 })
 
 describe("When input |> boundary.validate[['Exist']]()",{
-  it("then an exception should thrown when input is null",{
+  it("then an exception should be thrown when input is null",{
     # Given
     boundary.validate <- Boundary.Validation()
 
     # Then
     NULL |> boundary.validate[['Exist']]() |> expect_error('argument is NULL')
   })
-  it("then no exception should thrown when input is not null",{
+  it("then no exception should be thrown when input is not null",{
     # Given
     boundary.validate <- Boundary.Validation()
 
