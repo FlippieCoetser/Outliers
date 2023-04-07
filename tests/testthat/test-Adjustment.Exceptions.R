@@ -20,3 +20,20 @@ describe("When adjustment.exceptions <- Adjustment.Exceptions()",{
     adjustment.exceptions[['NullException']] |> is.function() |> expect_equal(TRUE)
   })
 })
+
+describe("When input |>  adjustment.exception[['NullException']]()",{
+  it("then no exception is thrown if input is FALSE",{
+    # Given
+    adjustment.exception <- IQR.Exceptions()
+
+    # Then
+    FALSE |> adjustment.exception[['NullException']]() |> expect_no_error()
+  })
+  it("then NULL exception is thrown if input is TRUE",{
+    # Given
+    adjustment.exception <- IQR.Exceptions()
+
+    # Then
+    TRUE |> adjustment.exception[['NullException']]() |> expect_error('argument is NULL')
+  })
+})
