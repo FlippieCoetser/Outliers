@@ -20,3 +20,20 @@ describe("When adjustment.validators <- Adjustment.Validation()",{
     adjustment.validators[['Exist']] |> is.function() |> expect_equal(TRUE)
   })
 })
+
+describe("When input |> adjustment.validator[['Exist']]()",{
+  it("then no exception should be thrown if input is not null",{
+    # Given
+    adjustment.validator <- Adjustment.Validation()
+
+    # THEN
+    '' |> adjustment.validator[['Exist']]() |> expect_no_error()
+  })
+  it("should throw error when input is null",{
+    # Given
+    adjustment.validator <- Adjustment.Validation()
+
+    # THEN
+    NULL |> adjustment.validator[['Exist']]() |> expect_error('argument is NULL')
+  })
+})
