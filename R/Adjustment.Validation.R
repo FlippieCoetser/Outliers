@@ -1,7 +1,9 @@
 Adjustment.Validation <- \() {
+  exception <- Adjustment.Exceptions()
+
   validators <- list()
-  validators[['Exist']] <- \(args) {
-    
+  validators[['Exist']] <- \(data) {
+    data |> is.null() |> exception[['NullException']]()
   }
   return(validators)
 }
