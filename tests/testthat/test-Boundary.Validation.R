@@ -39,4 +39,14 @@ describe("When input |> boundary.validate[['Exist']]()",{
     # Then
     input |> boundary.validate[['Exist']]() |> expect_no_error()
   })
+  it("then input should be returned if input is not null",{
+    # Given
+    boundary.validate <- Boundary.Validation()
+
+    # When
+    input <- 1
+
+    # Then
+    input |> boundary.validate[['Exist']]() |> expect_equal(input)
+  })
 })
