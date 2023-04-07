@@ -1,1 +1,4 @@
-Boundary.Service <- \() {}
+Boundary.Service <- \() {
+  services <- list()
+  return(services)
+}
