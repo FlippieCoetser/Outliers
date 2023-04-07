@@ -12,11 +12,11 @@ describe("When adjustment.exceptions <- Adjustment.Exceptions()",{
     # Then
     adjustment.exceptions |> is.list() |> expect_equal(TRUE)
   })
-  it("then adjustment.exceptions contains Exist exception",{
+  it("then adjustment.exceptions contains NullException exception",{
     # Given
     adjustment.exceptions <- Adjustment.Exceptions()
 
     # Then
-    adjustment.exceptions[['Exist']] |> is.function() |> expect_equal(TRUE)
+    adjustment.exceptions[['NullException']] |> is.function() |> expect_equal(TRUE)
   })
 })

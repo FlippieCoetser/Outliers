@@ -1,6 +1,6 @@
 Adjustment.Exceptions <- \() {
   exceptions <- list()
-  exceptions[['Exist']] <- \(invoke) {
+  exceptions[['NullException']] <- \(invoke) {
     
   }
   return(exceptions)
