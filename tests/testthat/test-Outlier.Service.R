@@ -56,6 +56,16 @@ describe("When input |> outlier.service[['Extract']]()",{
     # Then
     input |> outlier.service[['Extract']]() |> expect_error('argument is NULL')
   })
+  it("then an exception is thrown when input is not numeric",{
+    # Given
+    outlier.service <- Boundary.Service() |> Outlier.Service()
+    
+    # When
+    input   <- ''
+
+    # Then
+    input |> outlier.service[['Extract']]() |> expect_error('argument is not numeric')
+  })
 })
 
 describe("When input |> outlier.service[['Remove']]()",{
