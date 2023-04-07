@@ -70,4 +70,14 @@ describe("When input |> adjustment.validate[['IsNumeric']]()",{
     # Then
     "" |> adjustment.validate[['IsNumeric']]() |> expect_error('argument is not numeric')
   })
+  it("then input should be returned if input is numeric",{
+    # Given
+    adjustment.validate <- Adjustment.Validation()
+
+    # When
+    input <- 1
+
+    # Then
+    input |> adjustment.validate[['IsNumeric']]() |> expect_equal(input)
+  })
 })
