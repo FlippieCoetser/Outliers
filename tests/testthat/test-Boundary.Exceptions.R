@@ -12,4 +12,11 @@ describe("When boundary.exceptions <- Boundary.Exceptions()",{
     # Then
     boundary.exceptions |> is.list() |> expect_equal(TRUE)
   })
+  it("then boundary.exceptions contains NullException exception",{
+    # Given
+    boundary.exceptions <- Boundary.Exceptions()
+
+    # Then
+    boundary.exceptions[['NullException']] |> is.function() |> expect_equal(TRUE)
+  })
 })
