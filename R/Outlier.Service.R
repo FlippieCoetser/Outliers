@@ -6,5 +6,8 @@ Outlier.Service <- \(boundary) {
 
     sample[sample < boundary.lower | sample > boundary.upper] 
   }
+  services[['Remove']] <- \(sample) {
+    
+  }
   return(services)
 }
