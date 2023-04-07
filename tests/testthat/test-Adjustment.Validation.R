@@ -26,14 +26,24 @@ describe("When input |> adjustment.validator[['Exist']]()",{
     # Given
     adjustment.validator <- Adjustment.Validation()
 
-    # THEN
+    # Then
     '' |> adjustment.validator[['Exist']]() |> expect_no_error()
   })
   it("should throw error when input is null",{
     # Given
     adjustment.validator <- Adjustment.Validation()
 
-    # THEN
+    # Then
     NULL |> adjustment.validator[['Exist']]() |> expect_error('argument is NULL')
+  })
+  it("then input should be returned if input is not null",{
+    # Given
+    adjustment.validator <- Adjustment.Validation()
+
+    # When
+    input <- ''
+
+    # Then
+    input |> adjustment.validator[['Exist']]() |> expect_equal(input)
   })
 })
