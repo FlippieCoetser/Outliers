@@ -10,5 +10,8 @@ Boundary.Service <- \() {
     (sample |> range[['IQR']]()) * 
     (sample |> skewness[['medcouple']]() |> adjustment[['Upper']]())
   }
+  services[['Lower']] <- \(sample) {
+    
+  }
   return(services)
 }
