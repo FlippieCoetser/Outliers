@@ -21,29 +21,29 @@ describe("When adjustment.validators <- Adjustment.Validation()",{
   })
 })
 
-describe("When input |> adjustment.validator[['Exist']]()",{
+describe("When input |> adjustment.validate[['Exist']]()",{
   it("then no exception should be thrown if input is not null",{
     # Given
-    adjustment.validator <- Adjustment.Validation()
+    adjustment.validate <- Adjustment.Validation()
 
     # Then
-    '' |> adjustment.validator[['Exist']]() |> expect_no_error()
+    '' |> adjustment.validate[['Exist']]() |> expect_no_error()
   })
-  it("should throw error when input is null",{
+  it("then an exception should be thrown when input is null",{
     # Given
-    adjustment.validator <- Adjustment.Validation()
+    adjustment.validate <- Adjustment.Validation()
 
     # Then
-    NULL |> adjustment.validator[['Exist']]() |> expect_error('argument is NULL')
+    NULL |> adjustment.validate[['Exist']]() |> expect_error('argument is NULL')
   })
   it("then input should be returned if input is not null",{
     # Given
-    adjustment.validator <- Adjustment.Validation()
+    adjustment.validate <- Adjustment.Validation()
 
     # When
     input <- ''
 
     # Then
-    input |> adjustment.validator[['Exist']]() |> expect_equal(input)
+    input |> adjustment.validate[['Exist']]() |> expect_equal(input)
   })
 })
