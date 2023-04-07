@@ -19,6 +19,13 @@ describe("When boundary.validators <- Boundary.Validation()",{
     # Then
     boundary.validators[['Exist']] |> is.null() |> expect_equal(FALSE)
   })
+  it("then boundary.validators contains IsNumeric validator",{
+    # Given
+    boundary.validators <- Boundary.Validation()
+
+    # Then
+    boundary.validators[['IsNumeric']] |> is.null() |> expect_equal(FALSE)
+  })
 })
 
 describe("When input |> boundary.validate[['Exist']]()",{
