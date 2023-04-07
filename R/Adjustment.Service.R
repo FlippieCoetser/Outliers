@@ -3,7 +3,7 @@ Adjustment.Service <- \() {
 
   services <- list()
   services[['Upper']] <- \(medcouple) {
-    medcouple |> validate[['Exist']]() 
+    medcouple |> validate[['Exist']]() |> validate[['IsNumeric']]()
 
     adjustments <- list()
     adjustments[[1]] <- \(medcouple) exp(-3*medcouple)
