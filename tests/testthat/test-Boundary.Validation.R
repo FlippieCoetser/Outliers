@@ -20,3 +20,23 @@ describe("When boundary.validators <- Boundary.Validation()",{
     boundary.validators[['Exist']] |> is.null() |> expect_equal(FALSE)
   })
 })
+
+describe("When input |> boundary.validate[['Exist']]()",{
+  it("then an exception should thrown when input is null",{
+    # Given
+    boundary.validate <- Boundary.Validation()
+
+    # Then
+    NULL |> boundary.validate[['Exist']]() |> expect_error('argument is NULL')
+  })
+  it("then no exception should thrown when input is no tnull",{
+    # Given
+    boundary.validate <- Boundary.Validation()
+
+    # When
+    input <- 1
+
+    # Then
+    input |> boundary.validate[['Exist']]() |> expect_no_error()
+  })
+})
