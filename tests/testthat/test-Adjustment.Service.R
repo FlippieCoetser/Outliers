@@ -59,6 +59,14 @@ describe("When medcouple |> services[['Upper']]()",{
     # Then
     medcouple |> service[['Upper']]() |> expect_error('argument is NULL')
   })
+  it("then an exception should be thrown if input is not Numeric",{
+    # Given
+    service <- Adjustment.Service()
+    medcouple <- ""
+
+    # Then
+    medcouple |> service[['Upper']]() |> expect_error('argument is not numeric')
+  })
 })
 
 describe("When medcouple |> services[['Lower']]()",{
