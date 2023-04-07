@@ -57,3 +57,23 @@ describe("When input |> boundary.validate[['Exist']]()",{
     input |> boundary.validate[['Exist']]() |> expect_equal(input)
   })
 })
+
+describe("When input |> boundary.validate[['IsNumeric']]()",{
+  it("then an exception should be thrown when input is null",{
+    # Given
+    boundary.validate <- Boundary.Validation()
+
+    # Then
+    '' |> boundary.validate[['IsNumeric']]() |> expect_error('argument is not numeric')
+  })
+  it("then no exception should be thrown when input is not null",{
+    # Given
+    boundary.validate <- Boundary.Validation()
+
+    # When
+    input <- 1
+
+    # Then
+    input |> boundary.validate[['IsNumeric']]() |> expect_no_error()
+  })
+})
