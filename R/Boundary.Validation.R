@@ -8,6 +8,7 @@ Boundary.Validation <- \() {
   }
   validators[['IsNumeric']] <- \(data) {
     data |> is.numeric() |> isFALSE() |> exception[['NumericException']]()
+    return(data)
   }
   return(validators)
 }
