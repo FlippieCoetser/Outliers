@@ -47,3 +47,23 @@ describe("When input |> outlier.service[['Extract']]()",{
     actual.outliers |> expect_equal(expected.outliers)
   })
 })
+
+describe("When input |> outlier.service[['Remove']]()",{
+  it("then the outlier in input should be removed",{
+    # Given
+    boundary.service <- Boundary.Service()
+
+    outlier.service <- Boundary.Service() |> Outlier.Service()
+    input   <- 1000 |> rnorm(10,5)
+
+    # When
+    boundary.upper <- input |> boundary.service[['Upper']]()
+    boundary.lower <- input |> boundary.service[['Lower']]()
+
+    expected.outliers <- input[input >= boundary.lower & input <= boundary.upper]
+    actual.outliers   <- input |> outlier.service[['Remove']]()
+
+    # Then
+    actual.outliers |> expect_equal(expected.outliers)
+  })
+})
