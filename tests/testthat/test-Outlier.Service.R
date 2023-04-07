@@ -66,6 +66,17 @@ describe("When input |> outlier.service[['Extract']]()",{
     # Then
     input |> outlier.service[['Extract']]() |> expect_error('argument is not numeric')
   })
+  it("then an exception should be thrown when medcouple is out of range",{
+    # Given
+    outlier.service <- Boundary.Service() |> Outlier.Service()
+    set.seed(42)
+
+    # When
+    input <- skewed_data <- rgamma(1000, shape = 0.1, rate = 0.1)
+
+    # Then
+    input |> outlier.service[['Extract']]() |> expect_warning('medcouple is out of range: -0.6 > MC > 0.6')
+  })
 })
 
 describe("When input |> outlier.service[['Remove']]()",{
@@ -105,5 +116,16 @@ describe("When input |> outlier.service[['Remove']]()",{
 
     # Then
     input |> outlier.service[['Remove']]() |> expect_error('argument is not numeric')
+  })
+  it("then an exception should be thrown when medcouple is out of range",{
+    # Given
+    outlier.service <- Boundary.Service() |> Outlier.Service()
+    set.seed(42)
+
+    # When
+    input <- skewed_data <- rgamma(1000, shape = 0.1, rate = 0.1)
+
+    # Then
+    input |> outlier.service[['Remove']]() |> expect_warning('medcouple is out of range: -0.6 > MC > 0.6')
   })
 })

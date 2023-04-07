@@ -26,6 +26,13 @@ describe("When outlier.validators <- Outlier.Validation()",{
     # Then
     outlier.validators[['IsNumeric']] |> is.null() |> expect_equal(FALSE)
   })
+  it("then outlier.validators contains IsMedcoupleInRange validator",{
+    # Given
+    outlier.validators <- Outlier.Validation()
+
+    # Then
+    outlier.validators[['IsMedcoupleInRange']] |> is.null() |> expect_equal(FALSE)
+  })
 })
 
 describe("When input |> outlier.validate[['Exist']]()",{
@@ -85,5 +92,19 @@ describe("When input |> outlier.validate[['IsNumeric']]()",{
 
     # Then
     input |> outlier.validate[['IsNumeric']]() |> expect_equal(input)
+  })
+})
+
+describe("When input |> outlier.validate[['IsMedcoupleInRange']]()",{
+  it("then an exception should be thrown when medcouple is out of range",{
+    # Given
+    outlier.validate <- Outlier.Validation()
+    set.seed(42)
+
+    # When
+    input <- skewed_data <- rgamma(1000, shape = 0.1, rate = 0.1)
+
+    # Then
+    input |> outlier.validate[['IsMedcoupleInRange']]() |> expect_warning('medcouple is out of range: -0.6 > MC > 0.6')
   })
 })
