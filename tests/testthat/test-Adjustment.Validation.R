@@ -19,6 +19,13 @@ describe("When adjustment.validators <- Adjustment.Validation()",{
     # Then
     adjustment.validators[['Exist']] |> is.function() |> expect_equal(TRUE)
   })
+  it("then adjustment.validators contains IsNumeric validator",{
+    # Given
+    adjustment.validators <- Adjustment.Validation()
+
+    # Then
+    adjustment.validators[['IsNumeric']] |> is.function() |> expect_equal(TRUE)
+  })
 })
 
 describe("When input |> adjustment.validate[['Exist']]()",{
