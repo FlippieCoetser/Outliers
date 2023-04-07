@@ -11,7 +11,9 @@ Boundary.Service <- \() {
     (sample |> skewness[['medcouple']]() |> adjustment[['Upper']]())
   }
   services[['Lower']] <- \(sample) {
-    
+    (sample |> quartile[['first']]()) - 1.5 * 
+    (sample |> range[['IQR']]()) * 
+    (sample |> skewness[['medcouple']]() |> adjustment[['Lower']]())
   }
   return(services)
 }
