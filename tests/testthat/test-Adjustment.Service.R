@@ -1,27 +1,27 @@
-describe("Given Boundary.Adjustment.Service", {
+describe("Given Adjustment.Service", {
   it("Exist",{
-    Boundary.Adjustment.Service |> is.null() |> expect_equal(FALSE)
+    Adjustment.Service |> is.null() |> expect_equal(FALSE)
   })
 })
 
-describe("Given services <- Boundary.Adjustment.Service()",{
+describe("Given services <- Adjustment.Service()",{
   it("then services is a list",{
     # Given
-    services <- Boundary.Adjustment.Service()
+    services <- Adjustment.Service()
 
     # Then
     services |> is.list() |> expect_equal(TRUE)
   })
   it("then services contains upper service",{
     # Given
-    services <- Boundary.Adjustment.Service()
+    services <- Adjustment.Service()
 
     # Then
     services[['Upper']] |> is.function() |> expect_equal(TRUE)
   })
   it("then services contains lower service",{
     # Given
-    services <- Boundary.Adjustment.Service()
+    services <- Adjustment.Service()
 
     # Then
     services[['Lower']] |> is.function() |> expect_equal(TRUE)
@@ -31,7 +31,7 @@ describe("Given services <- Boundary.Adjustment.Service()",{
 describe("When medcouple |> services[['Upper']]()",{
   it("then exp(-4*medcouple) is returned if medcouple >= 0",{
     # Given
-    service <- Boundary.Adjustment.Service()
+    service <- Adjustment.Service()
     medcouple <- 1
 
     # When
@@ -42,7 +42,7 @@ describe("When medcouple |> services[['Upper']]()",{
   })
   it("then exp(-3*medcouple) is returned if medcouple < 0",{
     # Given
-    service <- Boundary.Adjustment.Service()
+    service <- Adjustment.Service()
     medcouple <- -1
 
     # When
@@ -56,7 +56,7 @@ describe("When medcouple |> services[['Upper']]()",{
 describe("When medcouple |> services[['Lower']]()",{
   it("then exp(3*medcouple) is returned if medcouple >= 0",{
     # Given
-    service <- Boundary.Adjustment.Service()
+    service <- Adjustment.Service()
     medcouple <- 1
 
     # When
@@ -67,7 +67,7 @@ describe("When medcouple |> services[['Lower']]()",{
   })
   it("then exp(4*medcouple) is returned if medcouple < 0",{
     # Given
-    service <- Boundary.Adjustment.Service()
+    service <- Adjustment.Service()
     medcouple <- -1
 
     # When

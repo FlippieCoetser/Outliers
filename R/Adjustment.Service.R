@@ -1,6 +1,4 @@
-Boundary.Adjustment.Service <- \() {
-  skewness <- Skewness.Service()
-
+Adjustment.Service <- \() {
   services <- list()
   services[['Upper']] <- \(medcouple) {
     adjustments <- list()
