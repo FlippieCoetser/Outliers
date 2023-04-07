@@ -54,3 +54,20 @@ describe("When input |> adjustment.validate[['Exist']]()",{
     input |> adjustment.validate[['Exist']]() |> expect_equal(input)
   })
 })
+
+describe("When input |> adjustment.validate[['IsNumeric']]()",{
+  it("then no exception should be thrown if input is numeric",{
+    # Given
+    adjustment.validate <- Adjustment.Validation()
+
+    # Then
+    1 |> adjustment.validate[['IsNumeric']]() |> expect_no_error()
+  })
+  it("then an exception should be thrown when input is not numeric",{
+    # Given
+    adjustment.validate <- Adjustment.Validation()
+
+    # Then
+    "" |> adjustment.validate[['IsNumeric']]() |> expect_error('argument is not numeric')
+  })
+})
