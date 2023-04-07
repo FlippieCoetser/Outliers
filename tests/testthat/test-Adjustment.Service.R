@@ -92,4 +92,12 @@ describe("When medcouple |> services[['Lower']]()",{
     # Then
     result |> expect_equal(exp(4*medcouple))
   })
+  it("then an exception should be thrown if input is NULL",{
+    # Given
+    service <- Adjustment.Service()
+    medcouple <- NULL
+
+    # Then
+    medcouple |> service[['Lower']]() |> expect_error('argument is NULL')
+  })
 })
