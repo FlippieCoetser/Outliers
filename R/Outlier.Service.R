@@ -11,8 +11,8 @@ Outlier.Service <- \(boundary) {
     sample[sample < boundary.lower | sample > boundary.upper] 
   }
   services[['Remove']] <- \(sample) {
-    sample |> validate[['Exist']]()
-    
+    sample |> validate[['Exist']]() |> validate[['IsNumeric']]()
+
     boundary.upper <- sample |> boundary[['Upper']]()
     boundary.lower <- sample |> boundary[['Lower']]()
 
