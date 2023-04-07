@@ -8,8 +8,8 @@ Boundary.Service <- \() {
 
   services <- list()
   services[['Upper']] <- \(sample) {
-    sample |> validate[['Exist']]()
-      
+    sample |> validate[['Exist']]() |> validate[['IsNumeric']]()
+
     (sample |> quartile[['third']]()) + 1.5 * 
     (sample |> range[['IQR']]()) * 
     (sample |> skewness[['medcouple']]() |> adjustment[['Upper']]())
