@@ -51,3 +51,27 @@ describe("Given input |> service[['Upper']]()",{
     actual.boundary |> expect_equal(expected.boundary)
   })
 })
+
+describe("Given input |> service[['Lower']]()",{
+  it("then a lower boundary should be returned",{
+    # Given
+    quartile   <- Quartile.Service()
+    range      <- IQR.Service() |> IQR.Processing()
+    skewness   <- Skewness.Service()
+    adjustment <- Adjustment.Service()
+
+    service <- Boundary.Service()
+    input   <- 1000 |> rnorm(10,5)
+
+    # When
+    expected.boundary <- 
+      (input |> quartile[['first']]()) - 1.5 * 
+      (input |> range[['IQR']]()) * 
+      (input |> skewness[['medcouple']]() |> adjustment[['Lower']]()) 
+
+    actual.boundary <- input |> service[['Lower']]()
+
+    # Then
+    actual.boundary |> expect_equal(expected.boundary)
+  })
+})
