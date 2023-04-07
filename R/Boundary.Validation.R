@@ -1,1 +1,4 @@
-Boundary.Validation <- \() {}
+Boundary.Validation <- \() {
+  validators <- list()
+  return(validators)
+}
