@@ -12,7 +12,7 @@ describe("Given outlier.services <- Outlier.Service()",{
     # Then
     outlier.services |> is.list() |> expect_equal(TRUE)
   })
-  it("then outlier.services contains upper service",{
+  it("then outlier.services contains Extract service",{
     # Given
     outlier.services <- Outlier.Service()
 
