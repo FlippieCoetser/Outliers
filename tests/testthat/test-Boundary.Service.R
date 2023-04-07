@@ -98,4 +98,14 @@ describe("Given input |> service[['Lower']]()",{
     # Then
     NULL |> service[['Lower']]() |> expect_error('argument is NULL')
   })
+  it("then an exception is thrown when input is not numeric",{
+    # Given
+    service <- Boundary.Service()
+
+    # When
+    input <- ''
+
+    # Then
+    input |> service[['Lower']]() |> expect_error('argument is not numeric')
+  })
 })
